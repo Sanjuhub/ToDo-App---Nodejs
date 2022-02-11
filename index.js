@@ -3,25 +3,24 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
-const keys = require('./config/keys');
 const PORT = process.env.PORT || 5000;
 //MongoDb connection
-try {
-  mongoose.connect(keys.mongoURIRemote, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-} catch (err) {
-  console.log(err.message);
-}
+// try {
+//   mongoose.connect(keys.mongoURIRemote, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+// } catch (err) {
+//   console.log(err.message);
+// }
 
-mongoose.connection
-  .once('open', () => {
-    console.log('database connected');
-  })
-  .on('disconnected', () => {
-    console.log('database disconnected');
-  });
+// mongoose.connection
+//   .once('open', () => {
+//     console.log('database connected');
+//   })
+//   .on('disconnected', () => {
+//     console.log('database disconnected');
+//   });
 
 const app = express();
 

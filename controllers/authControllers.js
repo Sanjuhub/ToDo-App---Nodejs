@@ -9,6 +9,16 @@ const {
   emailMessage,
   SmsMessage,
 } = require('../utilities/createMessage');
+const mongoose = require('mongoose');
+const Grid = require('gridfs-stream');
+
+//Grid FS Storage
+const conn = mongoose.connection;
+let gfs;
+conn.once('open', () => {
+  gfs = Grid(mongoose.connection.db, mongoose.mongo);
+  gfs.collection('userImage');
+});
 
 async function signUpUser(req, res) {
   const { userName, email, phone, password } = req.body;
@@ -187,4 +197,27 @@ function logoutUser(req, res) {
   res.json({ message: 'Logged out successfully' });
 }
 
-module.exports = { signUpUser, loginUser, verifyOtp, logoutUser };
+async function updateUser(req, res) {
+  const { userName, password } = req.body;
+  const fileId = req.file ? req.file.id : '';
+
+  try {
+    var hashedPassword;
+    if (password) {
+      const saltRounds = 12;
+      const salt = await bcrypt.genSalt(saltRounds);
+      hashedPassword = await bcrypt.hash(password, salt);
+    }
+
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      { _id: req.user.userid },
+      { userName, password: hashedPassword, profilePicId: fileId },
+      { new: true }
+    );
+    return res.json(updatedUser);
+  } catch (err) {
+    return res.status(422).json({ message: err.message });
+  }
+}
+
+module.exports = { signUpUser, loginUser, verifyOtp, logoutUser, updateUser };

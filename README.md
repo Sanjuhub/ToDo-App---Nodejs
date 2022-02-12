@@ -1,2 +1,2 @@
 # ToDo-App---Nodejs
-Advance todo App with authentication.
+Advance todo App with OTP based authentication.

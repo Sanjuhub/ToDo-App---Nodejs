@@ -98,7 +98,11 @@ async function loginUser(req, res) {
             if (err) {
               return res.status(422).json({ message: err.message });
             }
-            return res.json({ status: 'success', user: userExist._id });
+            return res.json({
+              status: 'success',
+              message: 'An OTP has been sent on Email',
+              user: userExist._id,
+            });
           }
         );
       })
@@ -118,8 +122,11 @@ async function loginUser(req, res) {
             if (err) {
               return res.status(422).json({ message: err.message });
             }
-            console.log(data);
-            return res.json({ status: 'success', user: userExist._id });
+            return res.json({
+              status: 'success',
+              message: 'An OTP has been sent on Mobile',
+              user: userExist._id,
+            });
           }
         );
       })

@@ -8,6 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 const authRoutes = require('./routes/authRoutes');
+const todoRoutes = require('./routes/todoRoutes');
 
 //MongoDb connection
 try {
@@ -45,5 +46,6 @@ app.get('/', (req, res) => {
 });
 
 app.use(authRoutes);
+app.use(todoRoutes);
 
 app.listen(PORT);

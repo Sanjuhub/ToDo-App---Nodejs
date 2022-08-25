@@ -5,28 +5,28 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8001;
 
-const authRoutes = require('./routes/authRoutes');
-const todoRoutes = require('./routes/todoRoutes');
+// const authRoutes = require('./routes/authRoutes');
+// const todoRoutes = require('./routes/todoRoutes');
 
 //MongoDb connection
-try {
-  mongoose.connect(process.env.mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
-} catch (err) {
-  console.log(err.message);
-}
+// try {
+//   mongoose.connect(process.env.mongoURI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
+// } catch (err) {
+//   console.log(err.message);
+// }
 
-mongoose.connection
-  .once('open', () => {
-    console.log('database connected');
-  })
-  .on('disconnected', () => {
-    console.log('database disconnected');
-  });
+// mongoose.connection
+//   .once('open', () => {
+//     console.log('database connected');
+//   })
+//   .on('disconnected', () => {
+//     console.log('database disconnected');
+//   });
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.get('/', (req, res) => {
   res.send('Server is up and running on PORT 5000');
 });
 
-app.use(authRoutes);
-app.use(todoRoutes);
+// app.use(authRoutes);
+// app.use(todoRoutes);
 
 app.listen(PORT);
